@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tokyo Drift M8</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: url("bg2.jpg") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    #car {
+      position: absolute;
+      bottom: 330px;
+      left: 50%;
+      transform: translate(-50%, 0);
+      width: 650px;
+      height: 401px;
+      transition: transform 0.1s ease;
+    }
+  </style>
+</head>
+<body>
+  <img src="m8.jpg" id="car" alt="Car" />
+
+  <script>
+    const car = document.getElementById("car");
+
+    let x = 0; // left/right
+    let y = 0; // forward/backward
+    const step = 4;
+
+    const keys = {
+      w: false,
+      a: false,
+      s: false,
+      d: false
+    };
+
+    document.addEventListener("keydown", (e) => {
+      if (keys.hasOwnProperty(e.key.toLowerCase())) {
+        keys[e.key.toLowerCase()] = true;
+      }
+    });
+
+    document.addEventListener("keyup", (e) => {
+      if (keys.hasOwnProperty(e.key.toLowerCase())) {
+        keys[e.key.toLowerCase()] = false;
+      }
+    });
+
+    function moveCar() {
+      if (keys.w) y -= step;
+      if (keys.s) y += step;
+      if (keys.a) x -= step;
+      if (keys.d) x += step;
+
+      car.style.transform = `translate(${x}px, ${y}px)`;
+
+      requestAnimationFrame(moveCar);
+    }
+
+    // Start the movement loop
+    moveCar();
+  </script>
+</body>
+</html>
